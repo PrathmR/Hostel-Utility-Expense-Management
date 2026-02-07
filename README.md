@@ -4,6 +4,9 @@ A Flask-based web application designed to automate the tracking, calculation, an
 
 ---
 
+<img width="1083" height="515" alt="image" src="https://github.com/user-attachments/assets/a66cab88-221a-4221-8371-74034403c2ff" />
+
+
 ## 🚀 Features
 
 * Manual monthly utility entry per room
