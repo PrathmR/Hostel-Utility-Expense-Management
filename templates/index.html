@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hostel Utility Expense Management</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .card {
+            border-radius: 12px;
+        }
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">🏠 Hostel Utility Expense Management</h2>
+
+    <!-- Manual Entry -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="section-title">➕ Add Monthly Usage</h5>
+
+            <form id="manualForm" class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="room_no" placeholder="Room No" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control" name="electricity" placeholder="Electricity Units" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control" name="water" placeholder="Water Units" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" value="1" readonly>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary w-100">Add</button>
+                </div>
+            </form>
+
+            <div id="msg" class="mt-2 text-success"></div>
+        </div>
+    </div>
+
+    <!-- CSV Upload -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="section-title">📂 Upload Bulk CSV</h5>
+
+            <form action="/admin/upload" method="POST" enctype="multipart/form-data">
+                <div class="input-group">
+                    <input type="file" class="form-control" name="file" required>
+                    <button class="btn btn-warning">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="section-title">📊 Monthly Report</h5>
+
+            <a href="/admin/generate-report" class="btn btn-success" target="_blank">
+                View JSON Report
+            </a>
+
+            <a href="/admin/download/csv" class="btn btn-outline-primary ms-2">
+                Download CSV
+            </a>
+
+            <a href="/admin/download/json" class="btn btn-outline-secondary ms-2">
+                Download JSON
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.getElementById("manualForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const data = {
+        room_no: this.room_no.value,
+        electricity: this.electricity.value,
+        water: this.water.value,
+        wifi: 1
+    };
+
+    fetch("/admin/add", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(r => r.json())
+    .then(r => {
+        document.getElementById("msg").innerText = r.message;
+        this.reset();
+    });
+});
+</script>
+
+</body>
+</html>

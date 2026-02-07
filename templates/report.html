@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Utility Report</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #222;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Monthly Utility Expense Report</h2>
+
+<table>
+    <tr>
+        <th>Room No</th>
+        <th>Electricity Cost</th>
+        <th>Water Cost</th>
+        <th>Wi-Fi Cost</th>
+        <th>Total</th>
+    </tr>
+
+    {% for r in report %}
+    <tr>
+        <td>{{ r.room_no }}</td>
+        <td>{{ r.electricity_cost }}</td>
+        <td>{{ r.water_cost }}</td>
+        <td>{{ r.wifi_cost }}</td>
+        <td><b>{{ r.total }}</b></td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
